@@ -1,5 +1,5 @@
-import { CheckIcon } from "@chakra-ui/icons";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/20/solid";
+
+import { PencilSquareIcon, TrashIcon,CheckIcon } from "@heroicons/react/20/solid";
 import React, { useState } from "react";
 import { TodosI } from "../App";
 import {motion} from 'framer-motion';
