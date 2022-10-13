@@ -94,6 +94,10 @@ input:focus {
   -webkit-appearance: none;
 }
 
+.completed-todo{
+color: rgb(171, 171, 171);
+}
+
 input:checked {
   box-shadow: inset 0 0 0 20px #16D275;
 }
@@ -116,7 +120,8 @@ input:checked {
   right: 20px;
   bottom: 20px;
   background-color: white;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+
+  box-shadow: 6px 7px 61px 4px rgba(0,0,0,0.75);
 }
 
 body.active {
@@ -125,10 +130,14 @@ body.active {
 }
 body.active .input-container {
   border: 2px solid rgb(41, 41, 41);
+  border-radius: 1rem;
+  box-shadow: 10px 10px 10px rgba(0,0,0,.1);
+  
 }
 body.active .input-container > input {
   background-color: #181820;
   color: white;
+
 }
 
 body.active .todos {
@@ -145,7 +154,18 @@ body.active .form {
 body.active .theme-btn  {
   background-color: #2b2b2c;
   border: none;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
 }
+
+body.active .completed-todo{
+  color: rgb(66, 66, 66);
+  }
+  
+body.active .edit-input{
+  background-color: #21212b;
+  color: white;
+  }
+  
 
 /*  media queries */
 

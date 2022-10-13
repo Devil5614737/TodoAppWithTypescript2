@@ -6,12 +6,12 @@ import { Todos } from "./components/Todos";
 import { toast, Toaster } from "react-hot-toast";
 import { MoonIcon, SunIcon } from "@heroicons/react/20/solid";
 
-
 export interface TodosI {
   id: number;
   text: string;
   isCompleted: boolean;
   editing?: boolean;
+  createdAt: number;
 }
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
   function getTodosFromLocalStorage() {
     const todos = localStorage.getItem("todos");
     if (todos) {
-      return JSON.parse(todos);
+      return JSON.parse(todos) as TodosI[];
     } else {
       return [];
     }
@@ -53,6 +53,7 @@ function App() {
       id: Math.floor(Math.random() * 9999999999999),
       text,
       isCompleted: false,
+      createdAt: Date.now(),
     };
 
     if (text.length >= 40)
@@ -60,6 +61,7 @@ function App() {
     if (!text) return toast.error("Todo should not be empty");
     setTodos([...todos, todo]);
   };
+
   const deleteTodo = (id: number) => {
     const remove = todos.filter((todo) => todo.id !== id);
     setTodos(remove);
@@ -100,15 +102,17 @@ function App() {
           <h1>Todo App</h1>
           <TodoInput addTodo={addTodo} />
           <div className="todos-container">
-            {todos?.map((todo) => (
-              <Todos
-                key={todo.id}
-                todo={todo}
-                deleteTodo={deleteTodo}
-                handleEdit={handleEdit}
-                handleCompleted={handleCompleted}
-              />
-            ))}
+            {todos
+              ?.sort((a, b) => b.createdAt - a.createdAt)
+              .map((todo) => (
+                <Todos
+                  key={todo.id}
+                  todo={todo}
+                  deleteTodo={deleteTodo}
+                  handleEdit={handleEdit}
+                  handleCompleted={handleCompleted}
+                />
+              ))}
           </div>
         </div>
       </Container>
@@ -121,9 +125,7 @@ function App() {
         }}
       />
       <div className="theme-btn" onClick={handleTheme}>
-        
-          <MoonIcon style={{ width: 17, height: 17 }} />
-      
+        <MoonIcon style={{ width: 17, height: 17 }} />
       </div>
     </main>
   );

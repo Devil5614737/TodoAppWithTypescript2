@@ -1,8 +1,11 @@
-
-import { PencilSquareIcon, TrashIcon,CheckIcon } from "@heroicons/react/20/solid";
+import {
+  PencilSquareIcon,
+  TrashIcon,
+  CheckIcon,
+} from "@heroicons/react/20/solid";
 import React, { useState } from "react";
 import { TodosI } from "../App";
-import {motion} from 'framer-motion';
+import { motion } from "framer-motion";
 
 interface PropsI {
   todo: TodosI;
@@ -20,22 +23,25 @@ export const Todos = ({
   const [text, setText] = useState<string>(todo.text);
 
   return (
-    <motion.div 
-    initial={{ opacity: 0, scale: 0.5 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.4 }}
-    className="todos">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 ,y:-10}}
+      animate={{ opacity: 1, scale: 1 ,y:0}}
+      transition={{ duration: 0.4,ease:"anticipate" }}
+      className="todos"
+    >
       <div className="todos-text">
         <input
-        readOnly
+          readOnly
           type="checkbox"
           className="checkbox"
           checked={todo.isCompleted}
-          onClick={() => handleCompleted(todo.id)}
+          onClick={() => {
+            handleCompleted(todo.id);
+          }}
         />
         {todo.editing ? (
           <input
-          autoFocus
+            autoFocus
             type="text"
             value={text}
             className="edit-input"
@@ -43,9 +49,11 @@ export const Todos = ({
               setText(e.currentTarget.value)
             }
           />
+        ) : todo.isCompleted ? (
+          <p className="completed-todo">
+            <s>{todo.text}</s>
+          </p>
         ) : (
-          todo.isCompleted?
-          <p><s>{todo.text}</s></p>:
           <p>{todo.text}</p>
         )}
       </div>
